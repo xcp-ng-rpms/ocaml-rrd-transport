@@ -1,13 +1,17 @@
 %define debug_package %{nil}
 
 Name:           ocaml-rrd-transport
-Version:        1.8.0
-Release:        12%{?dist}
+Version:        1.12.0
+Release:        1%{?dist}
 Summary:        Shared-memory protocols for transmitting RRD data
 License:        LGPL2.1 + OCaml linking exception
 URL:            https://github.com/xapi-project/rrd-transport/
-Source0:        https://code.citrite.net/rest/archive/latest/projects/XSU/repos/rrd-transport/archive?at=v%{version}&format=tar.gz&prefix=rrd-transport-%{version}#/rrd-transport-%{version}.tar.gz
-Provides: gitsha(https://code.citrite.net/rest/archive/latest/projects/XSU/repos/rrd-transport/archive?at=v1.8.0&format=tar.gz&prefix=rrd-transport-1.8.0#/rrd-transport-1.8.0.tar.gz) = df2da8ed1c9572e597c160503931ab8349424f0b
+
+Source0: https://code.citrite.net/rest/archive/latest/projects/XSU/repos/rrd-transport/archive?at=v1.12.0&format=tar.gz&prefix=ocaml-rrd-transport-1.12.0#/rrd-transport-1.12.0.tar.gz
+
+
+Provides: gitsha(https://code.citrite.net/rest/archive/latest/projects/XSU/repos/rrd-transport/archive?at=v1.12.0&format=tar.gz&prefix=ocaml-rrd-transport-1.12.0#/rrd-transport-1.12.0.tar.gz) = 9ec627c64cefd2a6c82bf0fb1a14da8987a294e4
+
 BuildRequires:  xs-opam-repo
 BuildRequires:  ocaml-xcp-idl-devel
 BuildRequires:  xen-dom0-libs-devel
@@ -21,6 +25,7 @@ Shared-memory protocol for transmitting RRD data, supporting in-memory files
 and shared Xen pages.
 
 %package        devel
+Provides: gitsha(https://code.citrite.net/rest/archive/latest/projects/XSU/repos/rrd-transport/archive?at=v1.12.0&format=tar.gz&prefix=ocaml-rrd-transport-1.12.0#/rrd-transport-1.12.0.tar.gz) = 9ec627c64cefd2a6c82bf0fb1a14da8987a294e4
 Summary:        Development files for %{name}
 Requires:       %{name} = %{version}-%{release}
 Requires:       xs-opam-repo
@@ -30,7 +35,7 @@ Requires:       xen-dom0-libs-devel
 The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
-%global ocaml_dir    /usr/lib/opamroot/system
+%global ocaml_dir    /usr/lib/opamroot/ocaml-system
 %global ocaml_libdir %{ocaml_dir}/lib
 %global ocaml_docdir %{ocaml_dir}/doc
 %global build_ocaml_dir %{buildroot}%{ocaml_dir}
@@ -38,7 +43,7 @@ developing applications that use %{name}.
 %global build_ocaml_docdir %{buildroot}%{ocaml_docdir}
 
 %prep
-%autosetup -p1 -n rrd-transport-%{version}
+%autosetup -p1
 
 %build
 make
@@ -48,7 +53,7 @@ mkdir -p %{buildroot}/%{_bindir}
 mkdir -p %{build_ocaml_libdir}
 mkdir -p %{build_ocaml_docdir}
 
-make install OPAM_PREFIX=%{build_ocaml_dir} OPAM_LIBDIR=%{build_ocaml_libdir} BINDIR=%{buildroot}%{_bindir}
+make install DESTDIR=%{buildroot} BINDIR=%{_bindir}
 
 %files
 %doc LICENSE
@@ -68,12 +73,27 @@ make install OPAM_PREFIX=%{build_ocaml_dir} OPAM_LIBDIR=%{build_ocaml_libdir} BI
 %{ocaml_libdir}/rrd-transport/*.cmxs
 %{ocaml_libdir}/rrd-transport/*.cmx
 %{ocaml_libdir}/rrd-transport/*.ml
-%exclude %{ocaml_libdir}/rrd-transport/*.mli
+%{ocaml_libdir}/rrd-transport/*.mli
 
 %{_bindir}/rrdreader
 %{_bindir}/rrdwriter
 
 %changelog
+* Wed Jan 23 2019 Christian Lindig <christian.lindig@citrix.com> - 1.12.0-1
+- Prepare for Dune 1.6
+
+* Fri Jan 11 2019 Christian Lindig <christian.lindig@citrix.com> - 1.11.0-1
+- Use xapi-rrd; rrd is being deprecated.
+- Use OCaml v4.07 for travis.
+- Corrected coverage rewriter.
+
+* Tue Dec 04 2018 Christian Lindig <christian.lindig@citrix.com> - 1.10.0-1
+- Moved from jbuilder to dune; deprecated xcp in favour of xapi-idl.
+
+* Wed Oct 31 2018 Christian Lindig <christian.lindig@citrix.com> - 1.9.0-1
+- Update opam files for Opam 2
+- Coverage: install bisect_ppx, not pinning it
+
 * Wed Apr 04 2018 Marcello Seri <marcello.seri@citrix.com> - 1.8.0-4
 - Update SPEC file to get rid of rpmbuild warnings
 
