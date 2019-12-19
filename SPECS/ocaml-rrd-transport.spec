@@ -1,16 +1,16 @@
 %define debug_package %{nil}
 
 Name:           ocaml-rrd-transport
-Version:        1.12.0
-Release:        1%{?dist}
+Version:        1.16.0
+Release:        2%{?dist}
 Summary:        Shared-memory protocols for transmitting RRD data
 License:        LGPL2.1 + OCaml linking exception
 URL:            https://github.com/xapi-project/rrd-transport/
 
-Source0: https://code.citrite.net/rest/archive/latest/projects/XSU/repos/rrd-transport/archive?at=v1.12.0&format=tar.gz&prefix=ocaml-rrd-transport-1.12.0#/rrd-transport-1.12.0.tar.gz
+Source0: https://code.citrite.net/rest/archive/latest/projects/XSU/repos/rrd-transport/archive?at=v1.16.0&format=tar.gz&prefix=ocaml-rrd-transport-1.16.0#/rrd-transport-1.16.0.tar.gz
 
 
-Provides: gitsha(https://code.citrite.net/rest/archive/latest/projects/XSU/repos/rrd-transport/archive?at=v1.12.0&format=tar.gz&prefix=ocaml-rrd-transport-1.12.0#/rrd-transport-1.12.0.tar.gz) = 9ec627c64cefd2a6c82bf0fb1a14da8987a294e4
+Provides: gitsha(https://code.citrite.net/rest/archive/latest/projects/XSU/repos/rrd-transport/archive?at=v1.16.0&format=tar.gz&prefix=ocaml-rrd-transport-1.16.0#/rrd-transport-1.16.0.tar.gz) = ab11b1fbd8e2cbcea3f45db282cd0c4119bd3299
 
 BuildRequires:  xs-opam-repo
 BuildRequires:  ocaml-xcp-idl-devel
@@ -25,7 +25,7 @@ Shared-memory protocol for transmitting RRD data, supporting in-memory files
 and shared Xen pages.
 
 %package        devel
-Provides: gitsha(https://code.citrite.net/rest/archive/latest/projects/XSU/repos/rrd-transport/archive?at=v1.12.0&format=tar.gz&prefix=ocaml-rrd-transport-1.12.0#/rrd-transport-1.12.0.tar.gz) = 9ec627c64cefd2a6c82bf0fb1a14da8987a294e4
+Provides: gitsha(https://code.citrite.net/rest/archive/latest/projects/XSU/repos/rrd-transport/archive?at=v1.16.0&format=tar.gz&prefix=ocaml-rrd-transport-1.16.0#/rrd-transport-1.16.0.tar.gz) = ab11b1fbd8e2cbcea3f45db282cd0c4119bd3299
 Summary:        Development files for %{name}
 Requires:       %{name} = %{version}-%{release}
 Requires:       xs-opam-repo
@@ -35,7 +35,7 @@ Requires:       xen-dom0-libs-devel
 The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
-%global ocaml_dir    /usr/lib/opamroot/ocaml-system
+%global ocaml_dir    %{_opamroot}/ocaml-system
 %global ocaml_libdir %{ocaml_dir}/lib
 %global ocaml_docdir %{ocaml_dir}/doc
 %global build_ocaml_dir %{buildroot}%{ocaml_dir}
@@ -59,26 +59,53 @@ make install DESTDIR=%{buildroot} BINDIR=%{_bindir}
 %doc LICENSE
 %doc README.md
 %{ocaml_libdir}/rrd-transport/META
-%{ocaml_libdir}/rrd-transport/rrd_transport.cma
+%{ocaml_libdir}/rrd-transport/*.cma
 %{ocaml_libdir}/rrd-transport/*.cmi
+%{ocaml_libdir}/rrd-transport/dune-package
+%{ocaml_libdir}/rrd-transport/*/*.cma
+%{ocaml_libdir}/rrd-transport/*/*.cmi
 
 %files devel
 %exclude %{ocaml_libdir}/rrd-transport/opam
 %exclude %{ocaml_libdir}/rrd-transport/*.cmt
 %exclude %{ocaml_libdir}/rrd-transport/*.cmti
-%exclude %{ocaml_libdir}/rrd-transport/*.dune
+%exclude %{ocaml_libdir}/rrd-transport/*/*.cmt
+%exclude %{ocaml_libdir}/rrd-transport/*/*.cmti
 %{ocaml_dir}/doc/*
 %{ocaml_libdir}/rrd-transport/*.a
 %{ocaml_libdir}/rrd-transport/*.cmxa
 %{ocaml_libdir}/rrd-transport/*.cmxs
 %{ocaml_libdir}/rrd-transport/*.cmx
 %{ocaml_libdir}/rrd-transport/*.ml
-%{ocaml_libdir}/rrd-transport/*.mli
+%{ocaml_libdir}/rrd-transport/*/*.a
+%{ocaml_libdir}/rrd-transport/*/*.cmxa
+%{ocaml_libdir}/rrd-transport/*/*.cmxs
+%{ocaml_libdir}/rrd-transport/*/*.cmx
+%{ocaml_libdir}/rrd-transport/*/*.ml
+%{ocaml_libdir}/rrd-transport/*/*.mli
 
 %{_bindir}/rrdreader
 %{_bindir}/rrdwriter
 
 %changelog
+* Fri Aug 23 2019 Edwin Török <edvin.torok@citrix.com> - 1.16.0-2
+- bump packages after xs-opam update
+
+* Mon Jul 29 2019 Christian Lindig <christian.lindig@citrix.com> - 1.16.0-1
+- Create separate sub-packages for file and page
+- Update travis
+
+* Wed Jul 17 2019 Christian Lindig <christian.lindig@citrix.com> - 1.15.0-1
+- CP-31555 Use bisect_ppx to generate coveralls report
+
+* Tue May 14 2019 Christian Lindig <christian.lindig@citrix.com> - 1.14.0-1
+- CA-315952 Use Ezjsonm for json serialisation
+- CA-315952 update opam dependencies
+
+* Fri May 03 2019 Christian Lindig <christian.lindig@citrix.com> - 1.13.0-1
+- Don't use Bigrarray.Array1.map_file any longer
+- Simplify Travis setup
+
 * Wed Jan 23 2019 Christian Lindig <christian.lindig@citrix.com> - 1.12.0-1
 - Prepare for Dune 1.6
 
