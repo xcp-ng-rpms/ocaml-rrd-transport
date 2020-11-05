@@ -2,7 +2,7 @@
 
 Name:           ocaml-rrd-transport
 Version:        1.16.0
-Release:        3%{?dist}
+Release:        3.1%{?dist}
 Summary:        Shared-memory protocols for transmitting RRD data
 License:        LGPL2.1 + OCaml linking exception
 URL:            https://github.com/xapi-project/rrd-transport/
@@ -88,6 +88,9 @@ make install DESTDIR=%{buildroot} BINDIR=%{_bindir}
 %{_bindir}/rrdwriter
 
 %changelog
+* Thu Nov 05 2020 Samuel Verschelde <stormi-xcp@ylix.fr> - 1.16.0-3.1
+- Rebuild for xs-opam-src 6.35.1 from XS82E002
+
 * Fri Aug 23 2019 Edwin Török <edvin.torok@citrix.com> - 1.16.0-2
 - bump packages after xs-opam update
 
