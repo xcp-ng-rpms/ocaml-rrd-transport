@@ -2,7 +2,7 @@
 
 Name:           ocaml-rrd-transport
 Version:        1.16.0
-Release:        3.1.0.ipv6.1%{?dist}
+Release:        3.1.0.ipv6.2%{?dist}
 Summary:        Shared-memory protocols for transmitting RRD data
 License:        LGPL2.1 + OCaml linking exception
 URL:            https://github.com/xapi-project/rrd-transport/
@@ -88,6 +88,9 @@ make install DESTDIR=%{buildroot} BINDIR=%{_bindir}
 %{_bindir}/rrdwriter
 
 %changelog
+* Wed May 05 2021 Benjamin Reis <benjamin.reis@vates.fr> - 1.16.0-3.1.0.ipv6.2
+- Rebuild for IPv6: for ocaml-rrd-plugin build
+
 * Mon Feb 01 2021 Benjamin Reis <benjamin.reis@vates.fr> - 1.16.0-3.1.0.ipv6.1
 - Rebuild for IPv6: for ocaml-rrd-plugin build
 
