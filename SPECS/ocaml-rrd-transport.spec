@@ -88,8 +88,8 @@ make install DESTDIR=%{buildroot} BINDIR=%{_bindir}
 %{_bindir}/rrdwriter
 
 %changelog
-* Wed Oct 12 2022 Samuel Verschelde <stormi-xcp@ylix.fr> - 1.16.0-5.3$
-- Rebuild for security update synced from XS82ECU1019$
+* Wed Oct 12 2022 Samuel Verschelde <stormi-xcp@ylix.fr> - 1.16.0-5.3
+- Rebuild for security update synced from XS82ECU1019
 
 * Wed Aug 17 2022 Gael Duperrey <gduperrey@vates.fr> - 1.16.0-5.2
 - Rebuild for updated ocaml-xcp-idl from XS82ECU1011
