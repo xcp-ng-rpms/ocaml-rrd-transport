@@ -1,35 +1,27 @@
-%define debug_package %{nil}
+%global package_speccommit 93ac8b0aedfdefefb786b9a565121b7d26fc4be6
+%global package_srccommit v1.16.1
 
 Name:           ocaml-rrd-transport
-Version:        1.16.0
-Release:        5.3%{?dist}
+Version: 1.16.1
+Release: 2.1%{?xsrel}%{?dist}
 Summary:        Shared-memory protocols for transmitting RRD data
-License:        LGPL2.1 + OCaml linking exception
+License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 URL:            https://github.com/xapi-project/rrd-transport/
-
-Source0: https://code.citrite.net/rest/archive/latest/projects/XSU/repos/rrd-transport/archive?at=v1.16.0&format=tar.gz&prefix=ocaml-rrd-transport-1.16.0#/rrd-transport-1.16.0.tar.gz
-
-
-Provides: gitsha(https://code.citrite.net/rest/archive/latest/projects/XSU/repos/rrd-transport/archive?at=v1.16.0&format=tar.gz&prefix=ocaml-rrd-transport-1.16.0#/rrd-transport-1.16.0.tar.gz) = ab11b1fbd8e2cbcea3f45db282cd0c4119bd3299
-
+Source0: rrd-transport-1.16.1.tar.gz
 BuildRequires:  xs-opam-repo
 BuildRequires:  ocaml-xcp-idl-devel
-BuildRequires:  xen-dom0-libs-devel
+BuildRequires:  xen-ocaml-devel
 Requires:       ocaml
-
-%global _use_internal_dependency_generator 0
-%global __requires_exclude *caml*
 
 %description
 Shared-memory protocol for transmitting RRD data, supporting in-memory files
 and shared Xen pages.
 
 %package        devel
-Provides: gitsha(https://code.citrite.net/rest/archive/latest/projects/XSU/repos/rrd-transport/archive?at=v1.16.0&format=tar.gz&prefix=ocaml-rrd-transport-1.16.0#/rrd-transport-1.16.0.tar.gz) = ab11b1fbd8e2cbcea3f45db282cd0c4119bd3299
 Summary:        Development files for %{name}
 Requires:       %{name} = %{version}-%{release}
 Requires:       xs-opam-repo
-Requires:       xen-dom0-libs-devel
+Requires:       xen-ocaml-devel
 
 %description    devel
 The %{name}-devel package contains libraries and signature files for
@@ -88,6 +80,16 @@ make install DESTDIR=%{buildroot} BINDIR=%{_bindir}
 %{_bindir}/rrdwriter
 
 %changelog
+* Fri Apr 14 2023 Samuel Verschelde <stormi-xcp@ylix.fr> - 1.16.1-2.1
+- Sync with hotfix XS82ECU1027
+- *** Upstream changelog ***
+- * Thu Feb 23 2023 Pau Ruiz Safont <pau.ruizsafont@cloud.com> - 1.16.1-2
+- - Change license to match source repo
+- - Fix BuildRequires for xen libraries
+- - Remove macro for dependency generator
+- * Mon Feb 20 2023 Pau Ruiz Safont <pau.ruizsafont@cloud.com> - 1.16.1-1
+- - Same as 1.16.0, koji tooling needed an annotated tag to build
+
 * Wed Oct 12 2022 Samuel Verschelde <stormi-xcp@ylix.fr> - 1.16.0-5.3
 - Rebuild for security update synced from XS82ECU1019
 
