@@ -1,9 +1,9 @@
-%global package_speccommit 2afc3c1bef3a5ab4465b097a866c6440367058c0
+%global package_speccommit 81d5c661373ebdb23c15ac722dc870d5294ab482
 %global package_srccommit v1.16.1
 
 Name:           ocaml-rrd-transport
 Version: 1.16.1
-Release: 17%{?xsrel}%{?dist}
+Release: 20%{?xsrel}%{?dist}
 Summary:        Shared-memory protocols for transmitting RRD data
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
 URL:            https://github.com/xapi-project/rrd-transport/
@@ -80,6 +80,15 @@ make install DESTDIR=%{buildroot} BINDIR=%{_bindir}
 %{_bindir}/rrdwriter
 
 %changelog
+* Fri Dec 13 2024 Christian Lindig <christian.lindig@cloud.com> - 1.16.1-20
+- Bump release and rebuild
+
+* Thu Dec 12 2024 Christian Lindig <christian.lindig@cloud.com> - 1.16.1-19
+- Bump release and rebuild
+
+* Mon Dec 09 2024 Christian Lindig <christian.lindig@cloud.com> - 1.16.1-18
+- Bump release and rebuild
+
 * Thu Aug 29 2024 Christian Lindig <christian.lindig@cloud.com> - 1.16.1-17
 - Bump release and rebuild
 
